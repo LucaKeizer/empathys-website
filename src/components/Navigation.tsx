@@ -24,7 +24,7 @@ const Navigation = () => {
   ];
 
   return (
-    <header className="bg-[rgba(220,226,230,255)] z-50">
+    <header className={`z-50 ${pathname === '/' ? 'bg-[rgba(220,226,230,255)]' : 'bg-white shadow-sm'}`}>
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex items-center">
@@ -33,9 +33,9 @@ const Navigation = () => {
               <Image
                 src="/images/empathys-logo.png"
                 alt="Empathys"
-                width={180}
-                height={50}
-                className="h-8 lg:h-10 w-auto"
+                width={220}
+                height={65}
+                className="h-12 lg:h-14 w-auto"
                 priority
               />
             </Link>
