@@ -109,11 +109,7 @@ const ProductShowcaseSection = () => {
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-900">€24,95</span>
-                    <span className="text-lg text-gray-500 line-through">€29,95</span>
-                    <span className="bg-red-100 text-red-700 px-2 py-1 rounded text-sm font-medium">
-                      -17%
-                    </span>
+                    <span className="text-3xl font-bold text-gray-900">€21,95</span>
                   </div>
                   <p className="text-sm text-gray-600">Inclusief verzendkosten binnen Nederland</p>
                 </div>
@@ -128,10 +124,6 @@ const ProductShowcaseSection = () => {
                   Lees meer
                 </button>
               </div>
-
-              <p className="text-xs text-gray-500 mt-3 text-center">
-                ✓ Gratis verzending vanaf €20 | ✓ 14 dagen bedenktijd | ✓ Veilig betalen
-              </p>
             </div>
           </div>
         </div>

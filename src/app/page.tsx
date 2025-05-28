@@ -12,13 +12,6 @@ export default function Home() {
       <TeamSection />
       <ProductShowcaseSection />
       <VideoSection />
-      
-      {/* Placeholder for footer */}
-      <div className="bg-gray-800 text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p>Footer coming next...</p>
-        </div>
-      </div>
     </div>
   );
 }

@@ -1,0 +1,2 @@
+fix the TeamSection
+add links to the ProductShowcaseSection buttons
