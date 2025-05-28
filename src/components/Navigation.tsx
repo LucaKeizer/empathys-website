@@ -27,6 +27,11 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
+            {/* Temporary text logo until image issue is resolved */}
+            <div className="text-2xl font-bold text-primary-600">
+              Empathys
+            </div>
+            {/* 
             <Image
               src="/images/empathys-logo.png"
               alt="Empathys"
@@ -35,6 +40,7 @@ const Navigation = () => {
               className="h-8 lg:h-10 w-auto"
               priority
             />
+            */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -71,12 +77,12 @@ const Navigation = () => {
           {/* Cart and Mobile Menu Button */}
           <div className="flex items-center space-x-4">
             {/* Shopping Cart */}
-            <button className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors duration-200">
+            <Link href="/winkelwagen" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors duration-200">
               <ShoppingCart className="h-6 w-6" />
               <span className="absolute -top-1 -right-1 bg-secondary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 0
               </span>
-            </button>
+            </Link>
 
             {/* Mobile menu button */}
             <button
