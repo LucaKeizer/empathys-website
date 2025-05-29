@@ -1,8 +1,8 @@
-implement payment processing
-create the algemene voorwaarden and levering and retour pages
+1. add testing
+2. implement payment processing, first test and then live (wait for mom)
 
-after every page is complete, look for sections to improve
-add SEO
+3. after every page is complete, look for sections to improve
+4. add SEO
 
-transfer ssl certificate to hostnet
-upload site to hosting provider
+5. transfer ssl certificate to hostnet
+6. upload site to hosting provider
