@@ -5,10 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { state } = useCart();
 
   const navItems = [
     { href: '/', label: 'Home' },
@@ -86,9 +88,11 @@ const Navigation = () => {
             {/* Shopping Cart */}
             <Link href="/winkelwagen" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors duration-200">
               <ShoppingCart className="h-6 w-6" />
-              <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                0
-              </span>
+              {state.itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {state.itemCount}
+                </span>
+              )}
             </Link>
 
             {/* Mobile menu button */}

@@ -1,2 +1,8 @@
-fix the winkelwagen buttons to work with the shopping cart
+let's also update the little cart icon on the right side of the Navigation.tsx, so that it shows the amount of items in the cart. i have attached Navigation.tsx if you need it
+finish the checkout, and implement payment processing
+
 after every page is complete, look for sections to improve
+add SEO
+
+transfer ssl certificate to hostnet
+upload site to hosting provider

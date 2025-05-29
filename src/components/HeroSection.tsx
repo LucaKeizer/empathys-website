@@ -27,9 +27,9 @@ const HeroSection = () => {
               <Image
                 src="/images/book-cover.png"
                 alt="Samen naar de Finish"
-                width={400}
-                height={500}
-                className="w-80 h-auto lg:w-96"
+                width={500}
+                height={625}
+                className="w-96 h-auto lg:w-[32rem]"
                 priority
               />
             </div>
@@ -37,10 +37,10 @@ const HeroSection = () => {
 
           {/* Content */}
           <div className="flex-1 text-center lg:text-left">
-            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-4">
               Samen naar de Finish
             </h1>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl">
+            <p className="text-base text-gray-600 mb-8 max-w-2xl">
               Een therapeutisch prentenboek om samen met kinderen hun emoties, kwaliteiten en valkuilen te ontdekken.
             </p>
             

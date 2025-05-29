@@ -63,6 +63,9 @@ export default function SamenNaarDeFinish() {
         slug: "samen-naar-de-finish"
       });
     }
+    
+    // Reset quantity to 1 after adding to cart
+    setQuantity(1);
   };
 
   const openPreview = () => {
