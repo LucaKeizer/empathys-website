@@ -1,5 +1,5 @@
-let's also update the little cart icon on the right side of the Navigation.tsx, so that it shows the amount of items in the cart. i have attached Navigation.tsx if you need it
-finish the checkout, and implement payment processing
+implement payment processing
+create the algemene voorwaarden and levering and retour pages
 
 after every page is complete, look for sections to improve
 add SEO
