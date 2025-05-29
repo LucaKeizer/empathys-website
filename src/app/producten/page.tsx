@@ -3,8 +3,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, BookOpen, Star } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 export default function Producten() {
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: 1,
+      title: "Samen naar de finish",
+      price: 21.95,
+      image: "/images/samen-naar-de-finish.jpg",
+      slug: "samen-naar-de-finish"
+    });
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* Breadcrumb */}
@@ -90,13 +103,13 @@ export default function Producten() {
                           Lees meer
                         </Link>
                         
-                        <Link
-                          href="/producten/samen-naar-de-finish"
+                        <button
+                          onClick={handleAddToCart}
                           className="bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2 text-lg"
                         >
                           <ShoppingCart className="h-5 w-5" />
                           Bestellen
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 import ProductImageGallery from '@/components/ProductImageGallery';
 import ImagePreviewModal from '@/components/ImagePreviewModal';
 import BookBackgroundInfo from '@/components/BookBackgroundInfo';
 
-export default function Prentenboek() {
+export default function SamenNaarDeFinish() {
+  const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -51,8 +53,16 @@ export default function Prentenboek() {
   };
 
   const handleAddToCart = () => {
-    // Shopping cart functionality will be implemented later
-    console.log(`Added ${quantity} book(s) to cart`);
+    // Add the specified quantity to cart
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: 1,
+        title: "Samen naar de finish",
+        price: 21.95,
+        image: "/images/samen-naar-de-finish.jpg",
+        slug: "samen-naar-de-finish"
+      });
+    }
   };
 
   const openPreview = () => {

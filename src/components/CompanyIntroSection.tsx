@@ -19,7 +19,7 @@ const CompanyIntroSection = () => {
               </p>
               <p>
                 Onze oudercursus 'Leer het gedrag van je kind beter te begrijpen en lezen' organiseren wij meerdere keren per jaar. Wij zullen nog meer cursussen ontwikkelen. Samen hebben wij ook een{' '}
-                <Link href="/prentenboek" className="text-primary-600 underline hover:text-primary-700">
+                <Link href="/producten/samen-naar-de-finish" className="text-primary-600 underline hover:text-primary-700">
                   therapeutisch prentenboek
                 </Link>
                 {' '}geschreven en ontwikkelen we spelmateriaal.

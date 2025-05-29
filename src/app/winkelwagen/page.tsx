@@ -2,48 +2,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
 import { Minus, Plus, X, ShoppingBag } from 'lucide-react';
-
-// Mock cart data - later this will come from a cart context/state management
-const mockCartItems = [
-  {
-    id: 1,
-    title: "Samen naar de finish",
-    price: 21.95,
-    quantity: 1,
-    image: "/images/samen-naar-de-finish.jpg"
-  }
-];
+import { useCart } from '@/contexts/CartContext';
 
 export default function Winkelwagen() {
-  // For demo purposes, toggle between empty and filled cart
-  const [cartItems, setCartItems] = useState(mockCartItems);
-  const [isCartEmpty, setIsCartEmpty] = useState(false);
+  const { state, updateQuantity, removeItem } = useCart();
+  const { items } = state;
 
   const shippingCost = 4.50;
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const total = subtotal + shippingCost;
-
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      setCartItems(cartItems.filter(item => item.id !== id));
-      return;
-    }
-    
-    setCartItems(cartItems.map(item => 
-      item.id === id 
-        ? { ...item, quantity: newQuantity }
-        : item
-    ));
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
+  const subtotal = state.total;
+  const total = subtotal + (subtotal > 0 ? shippingCost : 0);
 
   // Show empty cart state
-  if (isCartEmpty || cartItems.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="bg-white min-h-screen">
         {/* Breadcrumb */}
@@ -104,7 +75,7 @@ export default function Winkelwagen() {
             
             {/* Cart Items - Takes 3 columns */}
             <div className="lg:col-span-3 space-y-6">
-              {cartItems.map((item) => (
+              {items.map((item) => (
                 <div key={item.id} className="bg-white border border-gray-200 rounded-lg p-6">
                   <div className="flex items-center gap-6">
                     
@@ -212,16 +183,6 @@ export default function Winkelwagen() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Debug Toggle Button - Remove in production */}
-      <div className="fixed bottom-4 right-4">
-        <button
-          onClick={() => setIsCartEmpty(!isCartEmpty)}
-          className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm"
-        >
-          Toggle Empty Cart (Debug)
-        </button>
       </div>
     </div>
   );

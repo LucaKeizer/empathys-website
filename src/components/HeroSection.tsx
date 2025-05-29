@@ -2,8 +2,21 @@
 
 import Image from 'next/image';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const HeroSection = () => {
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: 1,
+      title: "Samen naar de finish",
+      price: 21.95,
+      image: "/images/samen-naar-de-finish.jpg",
+      slug: "samen-naar-de-finish"
+    });
+  };
+
   return (
     <section className="bg-[rgba(220,226,230,255)] section-padding">
       <div className="container mx-auto px-4">
@@ -32,7 +45,10 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="bg-[rgba(240,141,15,255)] text-white px-6 py-3 text-sm font-medium rounded-md hover:bg-[rgba(240,141,15,0.9)] transition-colors duration-200 inline-flex items-center gap-2">
+              <button 
+                onClick={handleAddToCart}
+                className="bg-[rgba(240,141,15,255)] text-white px-6 py-3 text-sm font-medium rounded-md hover:bg-[rgba(240,141,15,0.9)] transition-colors duration-200 inline-flex items-center gap-2"
+              >
                 <ShoppingCart className="h-5 w-5" />
                 In winkelwagen
               </button>
