@@ -1,104 +1,111 @@
-'use client';
-
+import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, LinkedinIcon } from 'lucide-react';
 
-const TeamSection = () => {
-  const teamMembers = [
-    {
-      name: "Melany",
-      title: "Oprichter & Trainer",
-      image: "/images/melany-profile.jpg",
-      description: "Melany is gespecialiseerd in kindertrainingen en het begeleiden van hoogbegaafde kinderen. Met jarenlange ervaring in de praktijk helpt zij kinderen en gezinnen om hun potentieel te ontdekken.",
-      expertise: ["Kindertrainingen", "Hoogbegaafdheid", "Gezinsbegeleiding", "Therapeutische interventies"]
-    },
-    {
-      name: "Marian",
-      title: "Trainer & Coach",
-      image: "/images/marian-profile.jpg", 
-      description: "Marian brengt expertise in coaching en training van professionals. Zij ontwikkelt en verzorgt cursussen voor ouders en professionals die werken met kinderen en jongeren.",
-      expertise: ["Oudercursussen", "Professionele training", "Coaching", "Werkvormen ontwikkeling"]
-    }
-  ];
-
+export default function TeamSection() {
   return (
-    <section className="bg-gray-50 section-padding">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Ons Team
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Ontmoet de mensen achter Empathys die zich dagelijks inzetten voor verbinding en vertrouwen.
-          </p>
-        </div>
+        <div className="max-w-7xl mx-auto space-y-16">
+          
+          {/* Melany Molenaar-Stroek */}
+          <div className="relative">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+              
+              {/* Left - Content */}
+              <div className="relative z-10 bg-gray-100 rounded-3xl p-8 lg:p-12">
+                {/* Decorative circle */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gray-200 rounded-full"></div>
+                
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
+                  Melany Molenaar-Stroek
+                </h3>
+                
+                <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                  <p>
+                    Mijn naam is Melany Molenaar- Stroek. Ik ben getrouwd en moeder van twee prachtige zoons. 
+                    Voorheen ben ik altijd werkzaam geweest op het speciaal basisonderwijs als docent. Naast het 
+                    werken als docent ben ik mezelf gaan specialiseren als{' '}
+                    <a href="https://www.kinderpraktijkmelany.nl/" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline">kinder- en jeugdtherapeut</a>.
+                  </p>
+                </div>
+                
+                <Link
+                  href="/over-ons/melany-molenaar-stroek"
+                  className="inline-block bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors duration-200 border border-gray-300 hover:border-gray-400"
+                >
+                  Lees meer
+                </Link>
+              </div>
 
-        {/* Team Members */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="p-8">
-                <div className="flex flex-col md:flex-row gap-6">
-                  {/* Profile Image */}
-                  <div className="flex-shrink-0 mx-auto md:mx-0">
-                    <div className="relative">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        width={150}
-                        height={150}
-                        className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover"
-                      />
-                      <div className="absolute inset-0 ring-4 ring-primary-500 ring-opacity-20 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-primary-600 font-medium mb-4">
-                      {member.title}
-                    </p>
-                    <p className="text-gray-600 mb-4">
-                      {member.description}
-                    </p>
-
-                    {/* Expertise Tags */}
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-900 mb-2">Expertise:</h4>
-                      <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                        {member.expertise.map((skill, skillIndex) => (
-                          <span
-                            key={skillIndex}
-                            className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Contact Icons */}
-                    <div className="flex gap-3 justify-center md:justify-start">
-                      <button className="p-2 text-gray-500 hover:text-primary-600 transition-colors">
-                        <Mail className="h-5 w-5" />
-                      </button>
-                      <button className="p-2 text-gray-500 hover:text-primary-600 transition-colors">
-                        <LinkedinIcon className="h-5 w-5" />
-                      </button>
-                    </div>
-                  </div>
+              {/* Right - Image */}
+              <div className="relative">
+                {/* Main decorative circles */}
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-gray-200 rounded-full opacity-60"></div>
+                <div className="absolute -bottom-12 -right-16 w-48 h-48 bg-gray-100 rounded-full opacity-40"></div>
+                
+                <div className="relative z-10">
+                  <Image
+                    src="/images/melany-large.jpg"
+                    alt="Melany Molenaar-Stroek - Kinder- en jeugdtherapeut"
+                    width={600}
+                    height={500}
+                    className="w-full h-auto rounded-2xl shadow-lg"
+                  />
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Marian Plat */}
+          <div className="relative">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+              
+              {/* Left - Image */}
+              <div className="relative lg:order-1 order-2">
+                {/* Decorative circles */}
+                <div className="absolute -top-12 -left-8 w-40 h-40 bg-gray-100 rounded-full opacity-50"></div>
+                <div className="absolute -bottom-8 -left-12 w-24 h-24 bg-gray-200 rounded-full opacity-70"></div>
+                
+                <div className="relative z-10">
+                  <Image
+                    src="/images/marian-large.jpg"
+                    alt="Marian Plat - Specialist hoogbegaafdheid en psychomotorisch remedial teacher"
+                    width={600}
+                    height={500}
+                    className="w-full h-auto rounded-2xl shadow-lg"
+                  />
+                </div>
+              </div>
+
+              {/* Right - Content */}
+              <div className="relative z-10 bg-gray-100 rounded-3xl p-8 lg:p-12 lg:order-2 order-1">
+                {/* Decorative circle */}
+                <div className="absolute -bottom-8 right-8 w-20 h-20 bg-gray-200 rounded-full"></div>
+                
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
+                  Marian Plat
+                </h3>
+                
+                <div className="prose prose-lg max-w-none text-gray-600 mb-8">
+                  <p>
+                    Mijn naam is Marian Plat. Ik ben getrouwd en moeder van twee zoons van 18 en 15 en een 
+                    dochter van 13. Naast specialist hoogbegaafdheid ben ik psychomotorisch remedial teacher 
+                    en reflexintegratie behandelaar. Ik begeleid scholen met diverse hulpvragen over 
+                    hoogbegaafdheid.
+                  </p>
+                </div>
+                
+                <Link
+                  href="/over-ons/marian-plat"
+                  className="inline-block bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors duration-200 border border-gray-300 hover:border-gray-400"
+                >
+                  Lees meer
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default TeamSection;
+}

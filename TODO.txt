@@ -1,3 +1,2 @@
-fix the TeamSection
-add links to the ProductShowcaseSection buttons
+fix the winkelwagen buttons to work with the shopping cart
 after every page is complete, look for sections to improve

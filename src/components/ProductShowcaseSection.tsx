@@ -120,9 +120,9 @@ const ProductShowcaseSection = () => {
                   <ShoppingCart className="h-5 w-5" />
                   In winkelwagen
                 </button>
-                <button className="btn btn-outline">
+                <a href="/producten/samen-naar-de-finish" className="btn btn-outline">
                   Lees meer
-                </button>
+                </a>
               </div>
             </div>
           </div>

@@ -37,10 +37,10 @@ const HeroSection = () => {
                 In winkelwagen
               </button>
               
-              <button className="bg-white text-primary-600 px-6 py-3 text-sm font-medium rounded-md shadow-md hover:shadow-lg transition-shadow duration-200 inline-flex items-center gap-2">
+              <a href="/producten/samen-naar-de-finish" className="bg-white text-primary-600 px-6 py-3 text-sm font-medium rounded-md shadow-md hover:shadow-lg transition-shadow duration-200 inline-flex items-center gap-2">
                 Lees meer
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </a>
             </div>
           </div>
         </div>

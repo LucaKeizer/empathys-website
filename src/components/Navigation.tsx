@@ -13,7 +13,7 @@ const Navigation = () => {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/over-ons', label: 'Over ons' },
-    { href: '/prentenboek', label: 'Ons prentenboek' },
+    { href: '/producten/samen-naar-de-finish', label: 'Ons prentenboek' },
     { href: '/cursussen', label: 'Cursussen', hasDropdown: true },
     { href: '/contact', label: 'Contact' },
   ];
