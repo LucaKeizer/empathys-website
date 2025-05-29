@@ -1,43 +1,227 @@
+"use client";
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
+import { Minus, Plus, X, ShoppingBag } from 'lucide-react';
+
+// Mock cart data - later this will come from a cart context/state management
+const mockCartItems = [
+  {
+    id: 1,
+    title: "Samen naar de finish",
+    price: 21.95,
+    quantity: 1,
+    image: "/images/samen-naar-de-finish.jpg"
+  }
+];
+
 export default function Winkelwagen() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">Winkelwagen</h1>
-          
-          <div className="bg-white p-8 rounded-lg shadow-sm">
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🛒</div>
-              <h2 className="text-2xl font-semibold mb-4 text-gray-600">
-                Je winkelwagen is leeg
-              </h2>
-              <p className="text-gray-500 mb-6">
-                Voeg producten toe om te beginnen met bestellen.
+  // For demo purposes, toggle between empty and filled cart
+  const [cartItems, setCartItems] = useState(mockCartItems);
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
+
+  const shippingCost = 4.50;
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const total = subtotal + shippingCost;
+
+  const updateQuantity = (id: number, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      setCartItems(cartItems.filter(item => item.id !== id));
+      return;
+    }
+    
+    setCartItems(cartItems.map(item => 
+      item.id === id 
+        ? { ...item, quantity: newQuantity }
+        : item
+    ));
+  };
+
+  const removeItem = (id: number) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  // Show empty cart state
+  if (isCartEmpty || cartItems.length === 0) {
+    return (
+      <div className="bg-white min-h-screen">
+        {/* Breadcrumb */}
+        <div className="container mx-auto px-4 pt-8">
+          <nav className="text-sm text-gray-500 mb-8">
+            <Link href="/" className="hover:text-primary-600">Home</Link>
+            <span className="mx-2">›</span>
+            <span>Winkelwagen</span>
+          </nav>
+        </div>
+
+        {/* Empty Cart Content */}
+        <div className="container mx-auto px-4 pb-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+              Winkelwagen
+            </h1>
+            
+            <div className="bg-gray-50 rounded-2xl p-12 mb-8">
+              <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-6" />
+              <p className="text-xl text-gray-600 mb-8">
+                Uw winkelwagen is leeg.
               </p>
               
-              <button className="btn btn-primary">
-                Bekijk onze producten
-              </button>
-            </div>
-            
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <h3 className="text-lg font-semibold mb-4 text-primary-600">
-                Functionaliteit in ontwikkeling
-              </h3>
-              <p className="text-gray-600 mb-4">
-                De winkelwagen wordt binnenkort gevuld met:
-              </p>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Overzicht van toegevoegde producten</li>
-                <li>Aantal aanpassen en producten verwijderen</li>
-                <li>Totaalbedrag berekening</li>
-                <li>Verzendkosten informatie</li>
-                <li>Checkout functionaliteit</li>
-                <li>Betaalmogelijkheden</li>
-              </ul>
+              <Link
+                href="/producten"
+                className="inline-block bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200"
+              >
+                Verder winkelen
+              </Link>
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Show filled cart state
+  return (
+    <div className="bg-white min-h-screen">
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 pt-8">
+        <nav className="text-sm text-gray-500 mb-8">
+          <Link href="/" className="hover:text-primary-600">Home</Link>
+          <span className="mx-2">›</span>
+          <span>Winkelwagen</span>
+        </nav>
+      </div>
+
+      {/* Cart Content */}
+      <div className="container mx-auto px-4 pb-4">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-12">
+            Winkelwagen
+          </h1>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            
+            {/* Cart Items - Takes 3 columns */}
+            <div className="lg:col-span-3 space-y-6">
+              {cartItems.map((item) => (
+                <div key={item.id} className="bg-white border border-gray-200 rounded-lg p-6">
+                  <div className="flex items-center gap-6">
+                    
+                    {/* Product Image */}
+                    <div className="flex-shrink-0">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={120}
+                        height={120}
+                        className="w-24 h-24 object-contain rounded-lg"
+                      />
+                    </div>
+
+                    {/* Product Details */}
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-semibold text-primary-600 mb-2">
+                        {item.title}
+                      </h3>
+                      
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                          >
+                            <Minus className="h-4 w-4" />
+                          </button>
+                          <span className="w-12 text-center font-medium">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Price */}
+                      <div className="text-2xl font-bold text-gray-900">
+                        € {(item.price * item.quantity).toFixed(2)}
+                      </div>
+                    </div>
+
+                    {/* Remove Button */}
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className="flex-shrink-0 p-2 text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Order Summary - Takes 2 columns */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-2xl p-6 sticky top-8 border border-gray-200">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  Overzicht
+                </h2>
+
+                {/* Cost Breakdown */}
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-medium text-gray-900">Subtotaal</span>
+                    <span className="text-lg font-bold text-gray-900">€ {subtotal.toFixed(2)}</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-medium text-gray-900">Verzendkosten</span>
+                    <span className="text-lg font-bold text-gray-900">€ {shippingCost.toFixed(2)}</span>
+                  </div>
+                  
+                  <hr className="border-gray-300" />
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-xl font-bold text-gray-900">Totaal</span>
+                    <span className="text-xl font-bold text-gray-900">€ {total.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-3">
+                  <Link
+                    href="/checkout"
+                    className="w-full bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2 text-lg"
+                  >
+                    <ShoppingBag className="h-5 w-5" />
+                    Afrekenen
+                  </Link>
+                  
+                  <Link
+                    href="/producten"
+                    className="w-full bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2 text-lg border border-gray-300"
+                  >
+                    ← Verder winkelen
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Debug Toggle Button - Remove in production */}
+      <div className="fixed bottom-4 right-4">
+        <button
+          onClick={() => setIsCartEmpty(!isCartEmpty)}
+          className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm"
+        >
+          Toggle Empty Cart (Debug)
+        </button>
       </div>
     </div>
   );
