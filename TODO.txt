@@ -1,2 +1,3 @@
 fix the TeamSection
 add links to the ProductShowcaseSection buttons
+after every page is complete, look for sections to improve
