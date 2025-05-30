@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, Mail, Package, ArrowRight } from 'lucide-react';
@@ -15,7 +15,8 @@ interface OrderDetails {
   }>;
 }
 
-export default function CheckoutSuccess() {
+// Create a separate component for the content that uses useSearchParams
+function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
@@ -243,5 +244,28 @@ export default function CheckoutSuccess() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Loading component for Suspense fallback
+function CheckoutSuccessLoading() {
+  return (
+    <div className="bg-white min-h-screen">
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-600 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-gray-600">Bevestiging laden...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Main component wrapped in Suspense
+export default function CheckoutSuccess() {
+  return (
+    <Suspense fallback={<CheckoutSuccessLoading />}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }
