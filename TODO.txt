@@ -1,8 +1,5 @@
-1. add testing
-2. implement payment processing, first test and then live (wait for mom)
+1. implement payment processing, first test and then live (wait for mom)
 
-3. after every page is complete, look for sections to improve
-4. add SEO
-
-5. transfer ssl certificate to hostnet
-6. upload site to hosting provider
+2. see if you can add SEO
+3. transfer ssl certificate to hostnet
+4. upload site to hostnet
