@@ -22,7 +22,7 @@ interface CheckoutForm {
   country: string;
   
   // Payment
-  paymentMethod: 'ideal' | 'card' | 'bancontact';
+  paymentMethod: 'ideal' | 'card';
   
   // Additional
   orderNotes: string;
@@ -378,19 +378,6 @@ export default function Checkout() {
                       />
                       <span className="font-medium">Creditcard</span>
                       <span className="text-sm text-gray-600 ml-auto">Visa, Mastercard</span>
-                    </label>
-                    
-                    <label className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-primary-500 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="bancontact"
-                        checked={formData.paymentMethod === 'bancontact'}
-                        onChange={handleInputChange}
-                        className="mr-3"
-                      />
-                      <span className="font-medium">Bancontact</span>
-                      <span className="text-sm text-gray-600 ml-auto">Voor België</span>
                     </label>
                   </div>
                 </div>

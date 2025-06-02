@@ -1,5 +1,2 @@
-1. implement payment processing, first test and then live (wait for mom)
-
-2. see if you can add SEO
-3. transfer ssl certificate to hostnet
-4. upload site to hostnet
+1. implement payment processing, first test and then live
+remove bancontact from checkout
