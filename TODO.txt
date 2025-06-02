@@ -1,2 +1,4 @@
-1. implement payment processing, first test and then live
-remove bancontact from checkout
+1. add cookie notification
+2. check if emails are sent using contact
+3. see if you can improve the appearance of some sections
+4. add SEO

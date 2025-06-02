@@ -50,9 +50,7 @@ export default function Checkout() {
     subscribeNewsletter: false,
   });
 
-  const shippingCost = 4.50;
-  const subtotal = state.total;
-  const total = subtotal + shippingCost;
+  const total = state.total; // Remove shipping cost calculation
 
   // Redirect if cart is empty
   if (state.items.length === 0) {
@@ -122,7 +120,7 @@ export default function Checkout() {
     setIsProcessing(true);
     
     try {
-      // Create order object
+      // Create order object - Remove shipping from pricing
       const orderData = {
         customer: {
           firstName: formData.firstName,
@@ -139,9 +137,9 @@ export default function Checkout() {
         },
         items: state.items,
         pricing: {
-          subtotal,
-          shipping: shippingCost,
-          total,
+          subtotal: total,
+          shipping: 0, // Remove shipping from frontend
+          total: total,
         },
         paymentMethod: formData.paymentMethod,
         orderNotes: formData.orderNotes,
@@ -423,15 +421,15 @@ export default function Checkout() {
                     ))}
                   </div>
                   
-                  {/* Pricing Summary */}
+                  {/* Pricing Summary - Remove shipping display */}
                   <div className="border-t border-gray-200 pt-4 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Subtotaal</span>
-                      <span className="font-medium">€ {subtotal.toFixed(2)}</span>
+                      <span className="font-medium">€ {total.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Verzendkosten</span>
-                      <span className="font-medium">€ {shippingCost.toFixed(2)}</span>
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>Verzendkosten</span>
+                      <span>Worden berekend bij betaling</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
                       <span>Totaal</span>

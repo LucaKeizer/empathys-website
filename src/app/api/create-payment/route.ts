@@ -26,18 +26,8 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity,
     }));
 
-    // Add shipping as a line item
-    lineItems.push({
-      price_data: {
-        currency: 'eur',
-        unit_amount: 450, // €4.50 in cents
-        product_data: {
-          name: 'Verzendkosten',
-          description: 'Standaard verzending binnen Nederland',
-        },
-      },
-      quantity: 1,
-    });
+    // NOTE: Shipping is now handled by Stripe's shipping_options, not as a line item
+    // This prevents double charging for shipping
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -62,7 +52,7 @@ export async function POST(request: NextRequest) {
         allowed_countries: ['NL', 'BE', 'DE'],
       },
       
-      // Pre-fill shipping address
+      // Shipping options - this is where shipping cost is added
       shipping_options: [
         {
           shipping_rate_data: {
@@ -152,7 +142,8 @@ async function sendOrderNotification(orderData: any, sessionId: string) {
       Bestelde producten:
       ${orderData.items.map((item: any) => `- ${item.quantity}x ${item.title} (€${item.price})`).join('\n')}
       
-      Totaal: €${orderData.pricing.total.toFixed(2)}
+      Subtotaal: €${orderData.pricing.total.toFixed(2)}
+      Verzendkosten: €4.50 (via Stripe)
       
       Betaalmethode: ${orderData.paymentMethod}
       

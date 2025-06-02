@@ -9,9 +9,7 @@ export default function Winkelwagen() {
   const { state, updateQuantity, removeItem } = useCart();
   const { items } = state;
 
-  const shippingCost = 4.50;
-  const subtotal = state.total;
-  const total = subtotal + (subtotal > 0 ? shippingCost : 0);
+  const total = state.total; // Remove shipping cost calculation
 
   // Show empty cart state
   if (items.length === 0) {
@@ -142,16 +140,16 @@ export default function Winkelwagen() {
                   Overzicht
                 </h2>
 
-                {/* Cost Breakdown */}
+                {/* Cost Breakdown - Removed shipping costs */}
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-gray-900">Subtotaal</span>
-                    <span className="text-lg font-bold text-gray-900">€ {subtotal.toFixed(2)}</span>
+                    <span className="text-lg font-bold text-gray-900">€ {total.toFixed(2)}</span>
                   </div>
                   
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-medium text-gray-900">Verzendkosten</span>
-                    <span className="text-lg font-bold text-gray-900">€ {shippingCost.toFixed(2)}</span>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Verzendkosten</span>
+                    <span>Worden berekend bij afrekenen</span>
                   </div>
                   
                   <hr className="border-gray-300" />

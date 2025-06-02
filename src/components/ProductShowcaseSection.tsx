@@ -111,7 +111,6 @@ const ProductShowcaseSection = () => {
                   <div className="flex items-center gap-3">
                     <span className="text-3xl font-bold text-gray-900">€21,95</span>
                   </div>
-                  <p className="text-sm text-gray-600">Inclusief verzendkosten binnen Nederland</p>
                 </div>
               </div>
 

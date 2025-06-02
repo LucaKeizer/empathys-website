@@ -6,6 +6,59 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil',
 });
 
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const sessionId = searchParams.get('session_id');
+
+    if (!sessionId) {
+      return NextResponse.json({
+        success: false,
+        error: 'Session ID is required',
+      }, { status: 400 });
+    }
+
+    // Retrieve the session from Stripe
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['line_items', 'payment_intent', 'shipping_details'],
+    });
+
+    if (!session) {
+      return NextResponse.json({
+        success: false,
+        error: 'Session not found',
+      }, { status: 404 });
+    }
+
+    // Extract order details
+    const orderDetails = {
+      sessionId: session.id,
+      customerEmail: session.customer_email,
+      orderTotal: (session.amount_total! / 100).toFixed(2), // Convert from cents
+      orderItems: session.line_items?.data.map(item => ({
+        name: item.description,
+        quantity: item.quantity,
+      })) || [],
+      paymentStatus: session.payment_status,
+      shippingDetails: (session as any).shipping_details, // Type assertion to fix TypeScript error
+    };
+
+    return NextResponse.json({
+      success: true,
+      orderDetails,
+    });
+
+  } catch (error) {
+    console.error('Order details retrieval error:', error);
+    
+    return NextResponse.json({
+      success: false,
+      error: 'Er ging iets mis bij het ophalen van de ordergegevens.',
+    }, { status: 500 });
+  }
+}
+
+// Keep the POST method for backward compatibility, but it should use the same logic as create-payment
 export async function POST(request: NextRequest) {
   try {
     const orderData = await request.json();
@@ -26,18 +79,8 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity,
     }));
 
-    // Add shipping as a line item
-    lineItems.push({
-      price_data: {
-        currency: 'eur',
-        unit_amount: 450, // €4.50 in cents
-        product_data: {
-          name: 'Verzendkosten',
-          description: 'Standaard verzending binnen Nederland',
-        },
-      },
-      quantity: 1,
-    });
+    // NOTE: Shipping is now handled by Stripe's shipping_options, not as a line item
+    // This prevents double charging for shipping
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -62,7 +105,7 @@ export async function POST(request: NextRequest) {
         allowed_countries: ['NL', 'BE', 'DE'],
       },
       
-      // Pre-fill shipping address
+      // Shipping options - this is where shipping cost is added
       shipping_options: [
         {
           shipping_rate_data: {
@@ -152,7 +195,8 @@ async function sendOrderNotification(orderData: any, sessionId: string) {
       Bestelde producten:
       ${orderData.items.map((item: any) => `- ${item.quantity}x ${item.title} (€${item.price})`).join('\n')}
       
-      Totaal: €${orderData.pricing.total.toFixed(2)}
+      Subtotaal: €${orderData.pricing.total.toFixed(2)}
+      Verzendkosten: €4.50 (via Stripe)
       
       Betaalmethode: ${orderData.paymentMethod}
       
