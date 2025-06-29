@@ -1,10 +1,33 @@
+// File: /src/app/api/order-details/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-// Initialize Stripe (you'll need to add your secret key to environment variables)
+// Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil',
 });
+
+// Function to check if address is in Volendam
+function isVolendamAddress(city: string, postalCode: string): boolean {
+  const normalizedCity = city.toLowerCase().trim();
+  const normalizedPostalCode = postalCode.replace(/\s/g, '').toLowerCase();
+  
+  // Check if city is Volendam
+  if (normalizedCity === 'volendam') {
+    return true;
+  }
+  
+  // Check postal codes for Volendam (1131-1135 range)
+  const postalCodeMatch = normalizedPostalCode.match(/^(\d{4})/);
+  if (postalCodeMatch) {
+    const postalCodeNumber = parseInt(postalCodeMatch[1]);
+    if (postalCodeNumber >= 1131 && postalCodeNumber <= 1135) {
+      return true;
+    }
+  }
+  
+  return false;
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -41,6 +64,8 @@ export async function GET(request: NextRequest) {
       })) || [],
       paymentStatus: session.payment_status,
       shippingDetails: (session as any).shipping_details, // Type assertion to fix TypeScript error
+      isVolendamDelivery: session.metadata?.is_volendam_delivery === 'true',
+      shippingCost: session.metadata?.shipping_cost || '0.00',
     };
 
     return NextResponse.json({
@@ -79,8 +104,60 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity,
     }));
 
-    // NOTE: Shipping is now handled by Stripe's shipping_options, not as a line item
-    // This prevents double charging for shipping
+    // Check if delivery is in Volendam
+    const isVolendam = isVolendamAddress(
+      orderData.shipping.city, 
+      orderData.shipping.postalCode
+    );
+
+    // Determine shipping options based on location
+    const shippingOptions: Stripe.Checkout.SessionCreateParams.ShippingOption[] = [];
+    
+    if (isVolendam) {
+      // Free delivery for Volendam
+      shippingOptions.push({
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: {
+            amount: 0, // Free shipping
+            currency: 'eur',
+          },
+          display_name: 'Gratis bezorging (Volendam)',
+          delivery_estimate: {
+            minimum: {
+              unit: 'business_day',
+              value: 1,
+            },
+            maximum: {
+              unit: 'business_day',
+              value: 2,
+            },
+          },
+        },
+      });
+    } else {
+      // Regular shipping for other locations
+      shippingOptions.push({
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: {
+            amount: 450, // €4.50 in cents
+            currency: 'eur',
+          },
+          display_name: 'Standaard verzending',
+          delivery_estimate: {
+            minimum: {
+              unit: 'business_day',
+              value: 2,
+            },
+            maximum: {
+              unit: 'business_day',
+              value: 5,
+            },
+          },
+        },
+      });
+    }
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -105,29 +182,8 @@ export async function POST(request: NextRequest) {
         allowed_countries: ['NL', 'BE', 'DE'],
       },
       
-      // Shipping options - this is where shipping cost is added
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 450, // €4.50 in cents
-              currency: 'eur',
-            },
-            display_name: 'Standaard verzending',
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 2,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 5,
-              },
-            },
-          },
-        },
-      ],
+      // Dynamic shipping options based on location
+      shipping_options: shippingOptions,
       
       // Metadata to store order information
       metadata: {
@@ -140,6 +196,8 @@ export async function POST(request: NextRequest) {
         shipping_country: orderData.shipping.country,
         order_notes: orderData.orderNotes || '',
         subscribe_newsletter: orderData.subscribeNewsletter.toString(),
+        is_volendam_delivery: isVolendam.toString(),
+        shipping_cost: isVolendam ? '0.00' : '4.50',
       },
       
       // Automatic tax calculation (optional)
@@ -149,13 +207,15 @@ export async function POST(request: NextRequest) {
       invoice_creation: { enabled: true },
     });
 
-    // Send confirmation email to your mother (optional)
-    await sendOrderNotification(orderData, session.id);
+    // Send confirmation email
+    await sendOrderNotification(orderData, session.id, isVolendam);
 
     return NextResponse.json({
       success: true,
       sessionId: session.id,
       paymentUrl: session.url,
+      isVolendamDelivery: isVolendam,
+      shippingCost: isVolendam ? 0 : 4.50,
     });
 
   } catch (error) {
@@ -169,13 +229,9 @@ export async function POST(request: NextRequest) {
 }
 
 // Function to send order notification email
-async function sendOrderNotification(orderData: any, sessionId: string) {
+async function sendOrderNotification(orderData: any, sessionId: string, isVolendam: boolean) {
   try {
-    // You can integrate with services like:
-    // - Resend (resend.com)
-    // - SendGrid
-    // - Nodemailer with Gmail SMTP
-    // - Or any other email service
+    const shippingCostText = isVolendam ? 'Gratis (Volendam bezorging)' : '€4.50 (via Stripe)';
     
     const emailContent = `
       Nieuwe bestelling ontvangen!
@@ -191,36 +247,22 @@ async function sendOrderNotification(orderData: any, sessionId: string) {
       ${orderData.shipping.street} ${orderData.shipping.houseNumber}
       ${orderData.shipping.postalCode} ${orderData.shipping.city}
       ${orderData.shipping.country}
+      ${isVolendam ? '*** VOLENDAM BEZORGING - GRATIS ***' : ''}
       
       Bestelde producten:
       ${orderData.items.map((item: any) => `- ${item.quantity}x ${item.title} (€${item.price})`).join('\n')}
       
       Subtotaal: €${orderData.pricing.total.toFixed(2)}
-      Verzendkosten: €4.50 (via Stripe)
+      Verzendkosten: ${shippingCostText}
       
       Betaalmethode: ${orderData.paymentMethod}
       
       ${orderData.orderNotes ? `Opmerkingen: ${orderData.orderNotes}` : ''}
     `;
     
-    // Here you would send the email
-    // Example with a fetch to your email service:
-    /*
-    await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: 'info@empathys.nl',
-        subject: 'Nieuwe bestelling ontvangen',
-        text: emailContent,
-      }),
-    });
-    */
-    
     console.log('Order notification prepared:', emailContent);
     
   } catch (error) {
     console.error('Failed to send order notification:', error);
-    // Don't throw error here - payment should still proceed
   }
 }

@@ -1,15 +1,16 @@
+// File: /src/app/winkelwagen/page.tsx
 "use client";
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Minus, Plus, X, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, X, ShoppingBag, Info } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 
 export default function Winkelwagen() {
   const { state, updateQuantity, removeItem } = useCart();
   const { items } = state;
 
-  const total = state.total; // Remove shipping cost calculation
+  const total = state.total;
 
   // Show empty cart state
   if (items.length === 0) {
@@ -140,7 +141,7 @@ export default function Winkelwagen() {
                   Overzicht
                 </h2>
 
-                {/* Cost Breakdown - Removed shipping costs */}
+                {/* Cost Breakdown */}
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-gray-900">Subtotaal</span>
@@ -156,7 +157,23 @@ export default function Winkelwagen() {
                   
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold text-gray-900">Totaal</span>
-                    <span className="text-xl font-bold text-gray-900">€ {total.toFixed(2)}</span>
+                    <span className="text-xl font-bold text-gray-900">€ {total.toFixed(2)}*</span>
+                  </div>
+                  
+                  <p className="text-xs text-gray-500">* Exclusief verzendkosten</p>
+                </div>
+
+                {/* Shipping Information */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm">
+                      <p className="font-medium text-blue-900 mb-1">Verzendkosten:</p>
+                      <ul className="text-blue-800 space-y-1">
+                        <li>• Volendam: <strong>Gratis bezorging</strong></li>
+                        <li>• Overige locaties: €4,50</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 

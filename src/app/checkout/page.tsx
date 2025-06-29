@@ -1,6 +1,7 @@
+// File: /src/app/checkout/page.tsx
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -30,10 +31,34 @@ interface CheckoutForm {
   subscribeNewsletter: boolean;
 }
 
+// Function to check if address is in Volendam
+function isVolendamAddress(city: string, postalCode: string): boolean {
+  const normalizedCity = city.toLowerCase().trim();
+  const normalizedPostalCode = postalCode.replace(/\s/g, '').toLowerCase();
+  
+  // Check if city is Volendam
+  if (normalizedCity === 'volendam') {
+    return true;
+  }
+  
+  // Check postal codes for Volendam (1131-1135 range)
+  const postalCodeMatch = normalizedPostalCode.match(/^(\d{4})/);
+  if (postalCodeMatch) {
+    const postalCodeNumber = parseInt(postalCodeMatch[1]);
+    if (postalCodeNumber >= 1131 && postalCodeNumber <= 1135) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 export default function Checkout() {
   const { state, clearCart } = useCart();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [shippingCost, setShippingCost] = useState(4.50);
+  const [isVolendamDelivery, setIsVolendamDelivery] = useState(false);
   const [formData, setFormData] = useState<CheckoutForm>({
     firstName: '',
     lastName: '',
@@ -50,7 +75,14 @@ export default function Checkout() {
     subscribeNewsletter: false,
   });
 
-  const total = state.total; // Remove shipping cost calculation
+  const total = state.total;
+
+  // Update shipping cost when address changes
+  useEffect(() => {
+    const isVolendam = isVolendamAddress(formData.city, formData.postalCode);
+    setIsVolendamDelivery(isVolendam);
+    setShippingCost(isVolendam ? 0 : 4.50);
+  }, [formData.city, formData.postalCode]);
 
   // Redirect if cart is empty
   if (state.items.length === 0) {
@@ -120,7 +152,7 @@ export default function Checkout() {
     setIsProcessing(true);
     
     try {
-      // Create order object - Remove shipping from pricing
+      // Create order object
       const orderData = {
         customer: {
           firstName: formData.firstName,
@@ -138,7 +170,7 @@ export default function Checkout() {
         items: state.items,
         pricing: {
           subtotal: total,
-          shipping: 0, // Remove shipping from frontend
+          shipping: shippingCost,
           total: total,
         },
         paymentMethod: formData.paymentMethod,
@@ -342,6 +374,24 @@ export default function Checkout() {
                       </select>
                     </div>
                   </div>
+
+                  {/* Volendam Delivery Notice */}
+                  {isVolendamDelivery && (
+                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm text-green-800">
+                            <strong>Gratis bezorging!</strong> Uw adres is in Volendam, daarom zijn er geen verzendkosten.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Payment Method */}
@@ -421,19 +471,21 @@ export default function Checkout() {
                     ))}
                   </div>
                   
-                  {/* Pricing Summary - Remove shipping display */}
+                  {/* Pricing Summary */}
                   <div className="border-t border-gray-200 pt-4 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Subtotaal</span>
                       <span className="font-medium">€ {total.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>Verzendkosten</span>
-                      <span>Worden berekend bij betaling</span>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Verzendkosten</span>
+                      <span className={`font-medium ${isVolendamDelivery ? 'text-green-600' : ''}`}>
+                        {isVolendamDelivery ? 'Gratis' : `€ ${shippingCost.toFixed(2)}`}
+                      </span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
                       <span>Totaal</span>
-                      <span>€ {total.toFixed(2)}</span>
+                      <span>€ {(total + shippingCost).toFixed(2)}</span>
                     </div>
                   </div>
                   

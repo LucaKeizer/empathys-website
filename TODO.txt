@@ -1,2 +1,2 @@
-1. see if you can improve the appearance of some sections
-2. add SEO
+1. see if you can improve the appearance of some sections, especially the landing area
+2. add a readme
