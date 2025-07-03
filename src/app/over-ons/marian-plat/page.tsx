@@ -81,41 +81,6 @@ export default function MarianPlat() {
                 </div>
               </div>
 
-              {/* Specializations */}
-              <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="h-6 w-6 text-white" />
-                  </div>
-                  Specialisaties
-                </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="group text-center p-6 bg-gradient-to-br from-orange-50 to-pink-50 rounded-2xl border border-orange-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                      <Award className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-3 text-lg">Hoogbegaafdheid</h3>
-                    <p className="text-gray-600 leading-relaxed">Specialist in het begeleiden van hoogbegaafde kinderen en dubbel bijzondere kinderen</p>
-                  </div>
-                  
-                  <div className="group text-center p-6 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                      <Heart className="h-8 w-8 text-white fill-current" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-3 text-lg">Reflexintegratie</h3>
-                    <p className="text-gray-600 leading-relaxed">Lichaamsgerichte behandeling voor alle leeftijden vanaf de geboorte</p>
-                  </div>
-                  
-                  <div className="group text-center p-6 bg-gradient-to-br from-teal-50 to-blue-50 rounded-2xl border border-teal-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                      <BookOpen className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-3 text-lg">Psychomotoriek</h3>
-                    <p className="text-gray-600 leading-relaxed">Remedial teacher voor motorische ontwikkeling en leren leren</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           
