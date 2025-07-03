@@ -1,2 +1,0 @@
-1. see if you can improve the appearance of some sections, especially the landing area
-2. add a readme
