@@ -90,7 +90,7 @@ export default function SamenNaarDeFinish() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-gradient-to-br from-gray-50 to-white min-h-screen">
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 pt-8">
         <nav className="text-sm text-gray-500 mb-8">
@@ -107,38 +107,47 @@ export default function SamenNaarDeFinish() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Left Column - Product Images */}
-          <ProductImageGallery
-            images={bookImages}
-            selectedImage={selectedImage}
-            onImageSelect={setSelectedImage}
-            onPreviewClick={openPreview}
-          />
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+            <ProductImageGallery
+              images={bookImages}
+              selectedImage={selectedImage}
+              onImageSelect={setSelectedImage}
+              onPreviewClick={openPreview}
+            />
+          </div>
 
           {/* Right Column - Product Information */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* Product Title */}
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
-              Samen naar de finish
-            </h1>
+            <div>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Samen naar de finish
+              </h1>
 
-            {/* Product Details */}
-            <div className="flex items-center gap-4 text-gray-600">
-              <span>9789090361345</span>
-              <span>|</span>
-              <span>Hardcover</span>
-              <span>|</span>
-              <span>37 blz.</span>
+              {/* Product Details */}
+              <div className="flex items-center gap-4 text-gray-600 mb-6">
+                <span>9789090361345</span>
+                <span>|</span>
+                <span>Hardcover</span>
+                <span>|</span>
+                <span>37 blz.</span>
+              </div>
             </div>
 
             {/* Price */}
-            <div className="text-3xl font-bold text-gray-900">
-              € 21,95
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="text-3xl font-bold text-gray-900 mb-2">
+                € 21,95
+              </div>
+              <p className="text-sm text-green-600 font-medium">
+                Inclusief verzending - Gratis bezorging in Volendam!
+              </p>
             </div>
 
             {/* Quantity and Add to Cart */}
-            <div className="space-y-4">
+            <div className="bg-white rounded-xl shadow-lg p-6 space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
                   Aantal
                 </label>
                 <div className="flex items-center gap-3">
@@ -167,7 +176,7 @@ export default function SamenNaarDeFinish() {
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 inline-flex items-center gap-2"
+                className="w-full bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="h-5 w-5" />
                 In Winkelwagen
@@ -175,13 +184,16 @@ export default function SamenNaarDeFinish() {
             </div>
 
             {/* Product Description */}
-            <div className="prose prose-lg max-w-none text-gray-600">
-              <p>
-                Verbinding is de basis van goed contact en een goede ontwikkeling. Wij hebben een 
-                boek geschreven om samen met je kind zijn of haar binnenwereld te ontdekken. In 
-                het boek krijgen de dieren te maken met allerlei obstakels en ervaren verschillende 
-                gevoelens.
-              </p>
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Beschrijving</h2>
+              <div className="prose prose-lg max-w-none text-gray-600">
+                <p>
+                  Verbinding is de basis van goed contact en een goede ontwikkeling. Wij hebben een 
+                  boek geschreven om samen met je kind zijn of haar binnenwereld te ontdekken. In 
+                  het boek krijgen de dieren te maken met allerlei obstakels en ervaren verschillende 
+                  gevoelens.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -190,11 +202,11 @@ export default function SamenNaarDeFinish() {
       {/* Product Description and Details Section */}
       <div className="bg-white py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-6xl mx-auto space-y-12">
             
             {/* Full Description */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Volledige beschrijving
               </h2>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -212,8 +224,8 @@ export default function SamenNaarDeFinish() {
             </div>
 
             {/* Details Section */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">
                 Details
               </h2>
               
@@ -221,22 +233,22 @@ export default function SamenNaarDeFinish() {
                 
                 {/* Left Column */}
                 <div className="space-y-0">
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">Auteur(s)</span>
                     <span className="text-gray-600">Melany Molenaar-Stroek & Marian Plat</span>
                   </div>
                   
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">Uitvoering</span>
                     <span className="text-gray-600">Hardcover</span>
                   </div>
                   
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">Productie</span>
                     <span className="text-gray-600">Drukzo</span>
                   </div>
                   
-                  <div className="flex py-3">
+                  <div className="flex py-4">
                     <span className="w-32 font-medium text-gray-900">Taal</span>
                     <span className="text-gray-600">Nederlands</span>
                   </div>
@@ -244,22 +256,22 @@ export default function SamenNaarDeFinish() {
 
                 {/* Right Column */}
                 <div className="space-y-0">
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">ISBN</span>
                     <span className="text-gray-600">9789090361345</span>
                   </div>
                   
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">Afmetingen</span>
                     <span className="text-gray-600">260 x 260 x 10 mm</span>
                   </div>
                   
-                  <div className="flex py-3 border-b border-gray-200">
+                  <div className="flex py-4 border-b border-gray-200">
                     <span className="w-32 font-medium text-gray-900">Aantal bladzijden</span>
                     <span className="text-gray-600">37</span>
                   </div>
                   
-                  <div className="flex py-3">
+                  <div className="flex py-4">
                     <span className="w-32 font-medium text-gray-900">Thema</span>
                     <span className="text-gray-600">Prentenboek, Kinderen, Ontwikkeling</span>
                   </div>

@@ -19,7 +19,7 @@ export default function Producten() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-gradient-to-br from-gray-50 to-white min-h-screen">
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 pt-8">
         <nav className="text-sm text-gray-500 mb-8">
@@ -46,7 +46,7 @@ export default function Producten() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             
             {/* Main Product Card - Takes 3 columns */}
-            <div className="lg:col-span-3 bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="lg:col-span-3 bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div className="p-8 lg:p-12">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
                   
@@ -58,7 +58,7 @@ export default function Producten() {
                         alt="Samen naar de finish"
                         width={350}
                         height={350}
-                        className="w-full h-full object-contain drop-shadow-lg"
+                        className="w-full h-full object-contain drop-shadow-lg transition-transform duration-500 hover:scale-105"
                         priority
                       />
                     </div>

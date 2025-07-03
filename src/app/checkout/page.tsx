@@ -87,7 +87,7 @@ export default function Checkout() {
   // Redirect if cart is empty
   if (state.items.length === 0) {
     return (
-      <div className="bg-white min-h-screen">
+      <div className="bg-gradient-to-br from-gray-50 to-white min-h-screen">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-2xl mx-auto text-center">
             <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-6" />
@@ -205,14 +205,14 @@ export default function Checkout() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gradient-to-br from-gray-50 to-white min-h-screen">
       {/* Header */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white shadow-lg">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">Afrekenen</h1>
-            <div className="flex items-center text-sm text-gray-600">
-              <Lock className="h-4 w-4 mr-2" />
+            <div className="flex items-center text-sm text-gray-600 bg-green-50 px-3 py-2 rounded-full">
+              <Lock className="h-4 w-4 mr-2 text-green-600" />
               Beveiligde verbinding
             </div>
           </div>
@@ -228,15 +228,15 @@ export default function Checkout() {
               <div className="lg:col-span-2 space-y-8">
                 
                 {/* Customer Information */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                   <div className="flex items-center mb-6">
-                    <User className="h-5 w-5 text-primary-600 mr-2" />
-                    <h2 className="text-lg font-semibold text-gray-900">Contactgegevens</h2>
+                    <User className="h-6 w-6 text-primary-600 mr-3" />
+                    <h2 className="text-xl font-semibold text-gray-900">Contactgegevens</h2>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Voornaam *
                       </label>
                       <input
@@ -244,13 +244,13 @@ export default function Checkout() {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Achternaam *
                       </label>
                       <input
@@ -258,13 +258,13 @@ export default function Checkout() {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         E-mailadres *
                       </label>
                       <input
@@ -272,13 +272,13 @@ export default function Checkout() {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Telefoonnummer
                       </label>
                       <input
@@ -286,22 +286,22 @@ export default function Checkout() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Shipping Address */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                   <div className="flex items-center mb-6">
-                    <MapPin className="h-5 w-5 text-primary-600 mr-2" />
-                    <h2 className="text-lg font-semibold text-gray-900">Verzendadres</h2>
+                    <MapPin className="h-6 w-6 text-primary-600 mr-3" />
+                    <h2 className="text-xl font-semibold text-gray-900">Verzendadres</h2>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="md:col-span-3">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Straatnaam *
                       </label>
                       <input
@@ -309,13 +309,13 @@ export default function Checkout() {
                         name="street"
                         value={formData.street}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Huisnummer *
                       </label>
                       <input
@@ -323,13 +323,13 @@ export default function Checkout() {
                         name="houseNumber"
                         value={formData.houseNumber}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Postcode *
                       </label>
                       <input
@@ -337,14 +337,14 @@ export default function Checkout() {
                         name="postalCode"
                         value={formData.postalCode}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         placeholder="1234 AB"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Plaats *
                       </label>
                       <input
@@ -352,20 +352,20 @@ export default function Checkout() {
                         name="city"
                         value={formData.city}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       />
                     </div>
                     
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Land *
                       </label>
                       <select
                         name="country"
                         value={formData.country}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         required
                       >
                         <option value="Nederland">Nederland</option>
@@ -377,10 +377,10 @@ export default function Checkout() {
 
                   {/* Volendam Delivery Notice */}
                   {isVolendamDelivery && (
-                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg">
                       <div className="flex items-center">
                         <div className="flex-shrink-0">
-                          <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                          <svg className="h-6 w-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         </div>
@@ -395,14 +395,14 @@ export default function Checkout() {
                 </div>
 
                 {/* Payment Method */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                   <div className="flex items-center mb-6">
-                    <CreditCard className="h-5 w-5 text-primary-600 mr-2" />
-                    <h2 className="text-lg font-semibold text-gray-900">Betaalmethode</h2>
+                    <CreditCard className="h-6 w-6 text-primary-600 mr-3" />
+                    <h2 className="text-xl font-semibold text-gray-900">Betaalmethode</h2>
                   </div>
                   
                   <div className="space-y-3">
-                    <label className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-primary-500 cursor-pointer">
+                    <label className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-500 cursor-pointer transition-colors">
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -415,7 +415,7 @@ export default function Checkout() {
                       <span className="text-sm text-gray-600 ml-auto">Betaal direct via uw bank</span>
                     </label>
                     
-                    <label className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-primary-500 cursor-pointer">
+                    <label className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-500 cursor-pointer transition-colors">
                       <input
                         type="radio"
                         name="paymentMethod"
@@ -431,14 +431,14 @@ export default function Checkout() {
                 </div>
 
                 {/* Order Notes */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-4">Opmerkingen bij bestelling</h2>
+                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Opmerkingen bij bestelling</h2>
                   <textarea
                     name="orderNotes"
                     value={formData.orderNotes}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Eventuele opmerkingen of speciale verzoeken..."
                   />
                 </div>
@@ -446,13 +446,13 @@ export default function Checkout() {
 
               {/* Right Column - Order Summary */}
               <div className="lg:col-span-1">
-                <div className="bg-white rounded-lg p-6 shadow-sm sticky top-8">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-6">Bestelling</h2>
+                <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 sticky top-8">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">Bestelling</h2>
                   
                   {/* Order Items */}
                   <div className="space-y-4 mb-6">
                     {state.items.map((item) => (
-                      <div key={item.id} className="flex items-center gap-3">
+                      <div key={item.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                         <Image
                           src={item.image}
                           alt={item.title}
@@ -472,7 +472,7 @@ export default function Checkout() {
                   </div>
                   
                   {/* Pricing Summary */}
-                  <div className="border-t border-gray-200 pt-4 space-y-2">
+                  <div className="border-t border-gray-200 pt-4 space-y-3">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Subtotaal</span>
                       <span className="font-medium">€ {total.toFixed(2)}</span>
@@ -483,7 +483,7 @@ export default function Checkout() {
                         {isVolendamDelivery ? 'Gratis' : `€ ${shippingCost.toFixed(2)}`}
                       </span>
                     </div>
-                    <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
+                    <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-3">
                       <span>Totaal</span>
                       <span>€ {(total + shippingCost).toFixed(2)}</span>
                     </div>
@@ -527,7 +527,7 @@ export default function Checkout() {
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className="w-full mt-6 bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] disabled:bg-gray-400 text-white px-6 py-4 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="w-full mt-6 bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] disabled:bg-gray-400 text-white px-6 py-4 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                   >
                     {isProcessing ? (
                       <>
