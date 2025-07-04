@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Users, Brain, Heart, Target, MessageCircle, Calendar, MapPin, Clock } from 'lucide-react';
+import { Users, Brain, Heart, Target, MessageCircle } from 'lucide-react';
 
 export default function SovaBreintraining() {
   return (

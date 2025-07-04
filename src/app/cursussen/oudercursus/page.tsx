@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ContactSection from '@/components/ContactSection';
-import { Heart, Users, BookOpen, MapPin, Clock, Calendar } from 'lucide-react';
+import { Heart, Users, BookOpen, MapPin, Calendar } from 'lucide-react';
 
 export default function Oudercursus() {
   return (

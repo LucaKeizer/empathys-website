@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HeroSection from '@/components/HeroSection';
-import { Award, BookOpen, Users, Heart, Play, Phone, Mail, Globe, Sparkles } from 'lucide-react';
+import { Award, Users, Heart, Play, Phone, Mail, Globe, Sparkles } from 'lucide-react';
 
 export default function MarianPlat() {
   return (

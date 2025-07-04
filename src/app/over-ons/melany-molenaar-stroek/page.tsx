@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HeroSection from '@/components/HeroSection';
-import { Heart, BookOpen, Users, Award, Sparkles, Phone, Mail, Star, Play } from 'lucide-react';
+import { Heart, Users, Award, Sparkles, Phone, Mail, Star, Play } from 'lucide-react';
 
 export default function MelanyMolenaarStroek() {
   return (
