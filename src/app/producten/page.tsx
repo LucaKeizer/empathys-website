@@ -50,16 +50,19 @@ export default function Producten() {
               <div className="p-8 lg:p-12">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
                   
-                  {/* Product Image */}
+                  {/* Product Image - OPTIMIZED */}
                   <div className="flex-shrink-0">
                     <div className="relative w-72 h-72 mx-auto">
                       <Image
                         src="/images/samen-naar-de-finish.jpg"
                         alt="Samen naar de finish"
-                        width={350}
-                        height={350}
-                        className="w-full h-full object-contain drop-shadow-lg transition-transform duration-500 hover:scale-105"
+                        width={288} // Exact pixel width (w-72 = 288px)
+                        height={288} // Exact pixel height (h-72 = 288px)
+                        className="w-full h-full object-contain drop-shadow-lg transition-transform duration-300 hover:scale-105"
                         priority
+                        quality={85}
+                        placeholder="blur"
+                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                       />
                     </div>
                   </div>
@@ -77,9 +80,11 @@ export default function Producten() {
                     
                     <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
                       <div className="flex text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="h-5 w-5 fill-current" />
-                        ))}
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
                       </div>
                       <span className="text-gray-600 text-sm">(Therapeutisch prentenboek)</span>
                     </div>
@@ -105,7 +110,7 @@ export default function Producten() {
                         
                         <button
                           onClick={handleAddToCart}
-                          className="bg-[rgba(240,141,15,255)] hover:bg-[rgba(240,141,15,0.9)] text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2 text-lg"
+                          className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-4 rounded-lg font-medium transition-colors duration-200 inline-flex items-center justify-center gap-2 text-lg"
                         >
                           <ShoppingCart className="h-5 w-5" />
                           Bestellen

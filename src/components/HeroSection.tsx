@@ -57,7 +57,7 @@ const HeroSection = () => {
             <p className="text-lg lg:text-xl text-gray-700 max-w-2xl leading-relaxed">
               Een <strong>therapeutisch prentenboek</strong> om samen met kinderen hun emoties, 
               kwaliteiten en valkuilen te ontdekken. Speciaal ontwikkeld door ervaren therapeuten 
-              voor een <span className="text-teal-600 font-semibold">betekenisvolle verbinding</span> 
+              voor een <span className="text-teal-600 font-semibold">betekenisvolle verbinding </span> 
               met je kind.
             </p>
 
