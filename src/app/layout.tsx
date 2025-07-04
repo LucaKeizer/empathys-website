@@ -5,6 +5,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CookieNotification from "@/components/CookieNotification";
 import { CartProvider } from "@/contexts/CartContext";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -54,7 +56,6 @@ export default function RootLayout({
           href="/images/empathys-logo.png"
           type="image/png"
         />
-        {/* Remove white logo preload - it's below the fold in footer */}
       </head>
       <body className={`${inter.className} page-container`}>
         <CartProvider>
@@ -67,6 +68,8 @@ export default function RootLayout({
           </div>
           <CookieNotification />
         </CartProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
