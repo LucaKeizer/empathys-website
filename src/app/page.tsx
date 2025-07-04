@@ -1,26 +1,28 @@
 import HeroSection from '@/components/HeroSection';
 import CompanyIntroSection from '@/components/CompanyIntroSection';
-import TeamSection from '@/components/TeamSection';
-import ProductShowcaseSection from '@/components/ProductShowcaseSection';
-import VideoSection from '@/components/VideoSection';
+
+// Lazy load below-the-fold components
+import { 
+  LazyTeamSection,
+  LazyProductShowcaseSection,
+  LazyVideoSection
+} from '@/components/LazyComponents';
 
 export default function Home() {
   return (
     <div className="min-h-screen overflow-hidden">
-      {/* Hero Section with improved design */}
+      {/* Above the fold - Load immediately */}
       <HeroSection />
       
-      {/* Company Introduction with modern styling */}
+      {/* Still important but can be optimized */}
       <CompanyIntroSection />
       
-      {/* Enhanced Team Section */}
-      <TeamSection />
+      {/* Below the fold - Lazy load these */}
+      <LazyTeamSection />
       
-      {/* Product Showcase with better visuals */}
-      <ProductShowcaseSection />
+      <LazyProductShowcaseSection />
       
-      {/* Video Section */}
-      <VideoSection />
+      <LazyVideoSection />
     </div>
   );
 }

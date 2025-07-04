@@ -46,17 +46,17 @@ const Navigation = memo(() => {
           <div className="flex items-center">
             {/* Logo - Optimized */}
             <Link href="/" className="flex-shrink-0 group">
-              <Image
-                src="/images/empathys-logo.png"
-                alt="Empathys"
-                width={220}
-                height={65}
-                className="h-12 lg:h-14 w-auto transition-transform duration-200 group-hover:scale-105"
-                priority
-                quality={90}
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-              />
+              <div className="relative w-[220px] h-12 lg:h-14">
+                <Image
+                  src="/images/empathys-logo.png"
+                  alt="Empathys"
+                  fill
+                  className="object-contain transition-transform duration-200 group-hover:scale-105"
+                  priority
+                  quality={90}
+                  sizes="220px"
+                />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
