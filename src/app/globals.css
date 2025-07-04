@@ -7,12 +7,20 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
     font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
     @apply antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Prevent font swap layout shift */
+  * {
+    font-display: swap;
   }
 
   /* Optimized scrollbar */
@@ -32,19 +40,34 @@
     @apply bg-gray-500;
   }
 
-  /* Prevent image flash */
+  /* Enhanced image loading to prevent flash and layout shift */
   img {
     background-color: transparent;
+    max-width: 100%;
+    height: auto;
   }
   
-  /* Next.js Image component optimization */
+  /* Next.js Image component optimization - prevent layout shift */
   img[data-nimg] {
     background-color: rgb(243 244 246); /* gray-100 */
-    transition: background-color 0.2s ease;
+    transition: opacity 0.3s ease-in-out;
+    display: block;
   }
   
   img[data-nimg="fill"] {
     background-color: transparent;
+  }
+
+  /* Prevent layout shift during image loading */
+  img[data-nimg="intrinsic"] {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Prevent layout shift from missing images */
+  img[data-nimg="responsive"] {
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -69,9 +92,10 @@
     @apply py-16 md:py-20 lg:py-24;
   }
 
-  /* Simplified card styles */
+  /* Simplified card styles with stable dimensions */
   .card {
     @apply bg-white rounded-2xl shadow-lg border border-gray-100 transition-shadow duration-200 hover:shadow-xl;
+    will-change: box-shadow;
   }
 
   .card-glass {
@@ -90,6 +114,7 @@
   /* Reduced animation utilities */
   .animate-float {
     animation: float 6s ease-in-out infinite;
+    will-change: transform;
   }
 
   /* Focus states */
@@ -97,11 +122,41 @@
     @apply focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
   }
 
-  /* Image loading skeleton - smoother transition */
+  /* Enhanced image loading skeleton - smoother transition */
   .image-skeleton {
     @apply bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100;
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
+    min-height: 200px;
+  }
+
+  /* Smooth image loading state with reserved space */
+  .image-loading {
+    @apply bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100;
+    background-size: 400% 400%;
+    animation: gradient-shift 2s ease-in-out infinite;
+    display: block;
+    width: 100%;
+  }
+
+  /* Stable page layout classes */
+  .page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-header {
+    flex-shrink: 0;
+  }
+
+  .page-main {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .page-footer {
+    flex-shrink: 0;
   }
 }
 
@@ -125,9 +180,18 @@
     background: linear-gradient(white, white) padding-box, 
                 linear-gradient(45deg, #0d9488, #3b82f6) border-box;
   }
+
+  /* Prevent layout shift utilities */
+  .no-layout-shift {
+    contain: layout style;
+  }
+
+  .aspect-stable {
+    aspect-ratio: var(--aspect-ratio, 1);
+  }
 }
 
-/* Optimized keyframe animations */
+/* Enhanced keyframe animations with stable transforms */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -146,6 +210,15 @@
   }
 }
 
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -155,12 +228,27 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .animate-float {
+    transform: none !important;
+  }
 }
 
-/* Critical loading optimization */
+/* Critical loading optimization - enhanced with stable dimensions */
 .loading-skeleton {
   @apply bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded;
   animation: shimmer 1.5s infinite;
+  min-height: inherit;
+  width: 100%;
+}
+
+/* Image preload optimization */
+.preload-image {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Optimize print styles */

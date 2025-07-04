@@ -6,7 +6,12 @@ import Footer from "@/components/Footer";
 import CookieNotification from "@/components/CookieNotification";
 import { CartProvider } from "@/contexts/CartContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  preload: true,
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: "Empathys - Verbinding en Vertrouwen",
@@ -19,6 +24,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "nl_NL",
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
 };
 
 export default function RootLayout({
@@ -27,12 +38,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl">
-      <body className={inter.className}>
+    <html lang="nl" className={`${inter.variable} antialiased`}>
+      <head>
+        {/* Preload critical images to prevent flash and layout shift */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/images/book-cover.png"
+          type="image/png"
+        />
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/images/empathys-logo.png"
+          type="image/png"
+        />
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/images/empathys-logo-white.png"
+          type="image/png"
+        />
+      </head>
+      <body className={`${inter.className} page-container`}>
         <CartProvider>
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
+          <div className="page-header">
+            <Navigation />
+          </div>
+          <main className="page-main">{children}</main>
+          <div className="page-footer">
+            <Footer />
+          </div>
           <CookieNotification />
         </CartProvider>
       </body>

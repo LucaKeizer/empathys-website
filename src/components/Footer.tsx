@@ -56,20 +56,24 @@ const Footer = () => {
           {/* Company Info & Social Media */}
           <div className="space-y-8">
             <div className="mb-6">
-              <Image
-                src="/images/empathys-logo-white.png"
-                alt="Empathys"
-                width={280}
-                height={85}
-                className="h-20 w-auto mb-6"
-              />
+              {/* Logo with stable dimensions */}
+              <div className="relative w-[280px] h-20 mb-6" style={{ aspectRatio: '280/80' }}>
+                <Image
+                  src="/images/empathys-logo-white.png"
+                  alt="Empathys"
+                  fill
+                  className="object-contain"
+                  style={{ objectFit: 'contain' }}
+                  sizes="280px"
+                />
+              </div>
               <p className="text-gray-300 leading-relaxed">
                 Verbinding en vertrouwen voor kinderen, ouders en professionals. 
                 Samen naar een betere toekomst.
               </p>
             </div>
             
-            {/* Social Media */}
+            {/* Social Media with stable layout */}
             <div>
               <h4 className="text-lg font-semibold mb-4 text-white">Volg ons</h4>
               <div className="flex space-x-4">
@@ -79,6 +83,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="group bg-white/10 backdrop-blur-sm p-3 rounded-xl hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
                   aria-label="Facebook"
+                  style={{ width: '48px', height: '48px' }} // Fixed dimensions
                 >
                   <Facebook className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
@@ -88,6 +93,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="group bg-white/10 backdrop-blur-sm p-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-500 hover:to-pink-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
                   aria-label="Instagram"
+                  style={{ width: '48px', height: '48px' }} // Fixed dimensions
                 >
                   <Instagram className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
@@ -97,6 +103,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="group bg-white/10 backdrop-blur-sm p-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
                   aria-label="LinkedIn"
+                  style={{ width: '48px', height: '48px' }} // Fixed dimensions
                 >
                   <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
@@ -115,7 +122,7 @@ const Footer = () => {
                 const isActive = pathname === link.href;
                 
                 return (
-                  <li key={link.href}>
+                  <li key={link.href} style={{ minHeight: '28px' }}> {/* Fixed height to prevent layout shift */}
                     <Link 
                       href={link.href}
                       className={`group flex items-center transition-all duration-300 hover:translate-x-2 ${
@@ -135,7 +142,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Opening Hours */}
+          {/* Opening Hours with stable layout */}
           <div>
             <h3 className="text-lg font-semibold mb-6 text-white flex items-center gap-2">
               <Clock className="h-5 w-5 text-teal-400" />
@@ -147,13 +154,18 @@ const Footer = () => {
                 const isOpen = isCurrentlyOpen(schedule.dayIndex, schedule.hours);
                 
                 return (
-                  <div key={index} className={`flex justify-between py-1 px-3 rounded-lg transition-all duration-300 ${
-                    isToday ? 'bg-white/10 backdrop-blur-sm' : 'hover:bg-white/5'
-                  }`}>
+                  <div 
+                    key={index} 
+                    className={`flex justify-between py-1 px-3 rounded-lg transition-all duration-300 ${
+                      isToday ? 'bg-white/10 backdrop-blur-sm' : 'hover:bg-white/5'
+                    }`}
+                    style={{ minHeight: '32px' }} // Fixed height to prevent layout shift
+                  >
                     <span 
                       className={`font-medium ${
                         isToday ? 'text-teal-400' : 'text-gray-300'
                       }`}
+                      style={{ minWidth: '80px' }} // Fixed width for day labels
                     >
                       {schedule.day}
                     </span>

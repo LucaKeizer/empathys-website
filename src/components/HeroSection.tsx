@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { ShoppingCart, ArrowRight, Heart, BookOpen } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 
 const HeroSection = () => {
   const { addItem } = useCart();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleAddToCart = () => {
     addItem({
@@ -118,39 +120,57 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Book Image - OPTIMIZED */}
+          {/* Right Column - Book Image - FIXED WITH PROPER DIMENSIONS */}
           <div className="flex-1 flex justify-center lg:justify-end">
             <div className="relative">
-              {/* Clean Book Container */}
+              {/* Image Container with stable dimensions */}
               <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/50">
-                <Image
-                  src="/images/book-cover.png"
-                  alt="Samen naar de Finish - Therapeutisch Prentenboek"
-                  width={400}
-                  height={500}
-                  className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto drop-shadow-lg transition-transform duration-300 hover:scale-102"
-                  priority
-                  quality={90}
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                />
+                <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl">
+                  {/* Loading skeleton that exactly matches image dimensions */}
+                  {!imageLoaded && (
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100 rounded-2xl animate-pulse z-10"
+                      style={{ width: '400px', height: '500px', aspectRatio: '400/500' }}
+                    />
+                  )}
+                  
+                  {/* Actual Image with stable dimensions - FIXED */}
+                  <Image
+                    src="/images/book-cover.png"
+                    alt="Samen naar de Finish - Therapeutisch Prentenboek"
+                    width={400}
+                    height={500}
+                    className={`w-full h-auto drop-shadow-lg transition-all duration-500 hover:scale-102 ${
+                      imageLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    priority
+                    quality={90}
+                    onLoad={() => setImageLoaded(true)}
+                    placeholder="blur"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  />
+                </div>
               </div>
 
-              {/* Simple Floating Elements - Reduced animations */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-br from-orange-500 to-pink-500 text-white px-4 py-2 rounded-full shadow-lg">
-                <span className="text-sm font-bold">Nieuw!</span>
-              </div>
-              
-              <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-teal-500 to-blue-500 text-white px-6 py-3 rounded-full shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="flex">
-                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
-                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
-                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
-                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
-                    <div className="w-3 h-3 bg-yellow-300 rounded-full"></div>
+              {/* Simple Floating Elements - Only show when image is loaded */}
+              <div className={`transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                <div className="absolute -top-4 -right-4 bg-gradient-to-br from-orange-500 to-pink-500 text-white px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-bold">Nieuw!</span>
+                </div>
+                
+                <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-teal-500 to-blue-500 text-white px-6 py-3 rounded-full shadow-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="flex">
+                      <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                      <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                      <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                      <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                      <div className="w-3 h-3 bg-yellow-300 rounded-full"></div>
+                    </div>
+                    <span className="text-sm font-semibold">Therapeutisch</span>
                   </div>
-                  <span className="text-sm font-semibold">Therapeutisch</span>
                 </div>
               </div>
             </div>

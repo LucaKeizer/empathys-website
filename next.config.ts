@@ -14,16 +14,42 @@ const nextConfig: NextConfig = {
         pathname: '/vi/**',
       },
     ],
+    // Add image loading optimization
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Enable image optimization for better performance
+    minimumCacheTTL: 60,
   },
   
   // Safe experimental features only
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // Enable static optimization
+    optimizeCss: true,
   },
   
   // Compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  // Performance optimizations
+  poweredByHeader: false,
+  compress: true,
+
+  // Headers for better caching
+  async headers() {
+    return [
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 };
 

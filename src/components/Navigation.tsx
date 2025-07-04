@@ -44,9 +44,9 @@ const Navigation = memo(() => {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex items-center">
-            {/* Logo - Optimized */}
+            {/* Logo - Optimized with stable dimensions */}
             <Link href="/" className="flex-shrink-0 group">
-              <div className="relative w-[220px] h-12 lg:h-14">
+              <div className="relative w-[220px] h-12 lg:h-14" style={{ aspectRatio: '220/56' }}>
                 <Image
                   src="/images/empathys-logo.png"
                   alt="Empathys"
@@ -55,6 +55,7 @@ const Navigation = memo(() => {
                   priority
                   quality={90}
                   sizes="220px"
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
             </Link>
@@ -109,14 +110,17 @@ const Navigation = memo(() => {
 
           {/* Cart and Mobile Menu Button */}
           <div className="flex items-center space-x-4">
-            {/* Shopping Cart - Optimized */}
+            {/* Shopping Cart - Optimized with stable dimensions */}
             <Link 
               href="/winkelwagen" 
               className="relative p-3 text-gray-700 hover:text-teal-600 transition-colors duration-200 hover:bg-white/60 rounded-lg group"
             >
               <ShoppingCart className="h-6 w-6 transition-transform duration-200 group-hover:scale-110" />
               {state.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg animate-pulse">
+                <span 
+                  className="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg animate-pulse"
+                  style={{ minWidth: '24px', minHeight: '24px' }} // Prevent layout shift
+                >
                   {state.itemCount}
                 </span>
               )}
@@ -127,54 +131,57 @@ const Navigation = memo(() => {
               onClick={handleToggle}
               className="lg:hidden p-3 text-gray-700 hover:text-teal-600 transition-colors duration-200 hover:bg-white/60 rounded-lg"
               aria-label="Toggle menu"
+              style={{ width: '48px', height: '48px' }} // Fixed dimensions
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-white/30">
-            <div className="space-y-2">
-              {navItems.map((item) => (
-                <div key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`block py-3 px-4 rounded-lg font-medium transition-colors duration-200 ${
-                      pathname === item.href 
-                        ? 'text-teal-600 bg-white/80 backdrop-blur-sm shadow-sm font-semibold' 
-                        : 'text-gray-700 hover:text-teal-600 hover:bg-white/60'
-                    }`}
-                    onClick={handleClose}
-                  >
-                    {item.label}
-                  </Link>
-                  
-                  {/* Mobile Dropdown */}
-                  {item.hasDropdown && (
-                    <div className="ml-4 space-y-1 mt-2">
-                      {dropdownItems.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.href}
-                          href={dropdownItem.href}
-                          className={`block py-2 px-4 rounded-lg text-sm transition-colors duration-200 ${
-                            pathname === dropdownItem.href
-                              ? 'text-teal-600 bg-white/80 backdrop-blur-sm font-medium'
-                              : 'text-gray-600 hover:text-teal-600 hover:bg-white/60'
-                          }`}
-                          onClick={handleClose}
-                        >
-                          {dropdownItem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+        {/* Mobile Navigation with stable height */}
+        <div 
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? 'max-h-96 opacity-100 py-4 border-t border-white/30' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="space-y-2">
+            {navItems.map((item) => (
+              <div key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`block py-3 px-4 rounded-lg font-medium transition-colors duration-200 ${
+                    pathname === item.href 
+                      ? 'text-teal-600 bg-white/80 backdrop-blur-sm shadow-sm font-semibold' 
+                      : 'text-gray-700 hover:text-teal-600 hover:bg-white/60'
+                  }`}
+                  onClick={handleClose}
+                >
+                  {item.label}
+                </Link>
+                
+                {/* Mobile Dropdown */}
+                {item.hasDropdown && (
+                  <div className="ml-4 space-y-1 mt-2">
+                    {dropdownItems.map((dropdownItem) => (
+                      <Link
+                        key={dropdownItem.href}
+                        href={dropdownItem.href}
+                        className={`block py-2 px-4 rounded-lg text-sm transition-colors duration-200 ${
+                          pathname === dropdownItem.href
+                            ? 'text-teal-600 bg-white/80 backdrop-blur-sm font-medium'
+                            : 'text-gray-600 hover:text-teal-600 hover:bg-white/60'
+                        }`}
+                        onClick={handleClose}
+                      >
+                        {dropdownItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );
