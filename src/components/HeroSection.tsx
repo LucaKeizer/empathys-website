@@ -19,8 +19,8 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[85vh] bg-gradient-to-br from-[#e8f4f8] via-[#f0f8fc] to-[#e0f2f7] overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-40">
+      {/* Subtle Background Elements - Simplified */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
         <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-teal-300/30 to-blue-300/30 rounded-full blur-xl"></div>
         <div className="absolute bottom-32 left-20 w-40 h-40 bg-gradient-to-br from-orange-300/30 to-pink-300/30 rounded-full blur-xl"></div>
       </div>
@@ -57,7 +57,7 @@ const HeroSection = () => {
             <p className="text-lg lg:text-xl text-gray-700 max-w-2xl leading-relaxed">
               Een <strong>therapeutisch prentenboek</strong> om samen met kinderen hun emoties, 
               kwaliteiten en valkuilen te ontdekken. Speciaal ontwikkeld door ervaren therapeuten 
-              voor een <span className="text-teal-600 font-semibold">betekenisvolle verbinding </span> 
+              voor een <span className="text-teal-600 font-semibold">betekenisvolle verbinding</span> 
               met je kind.
             </p>
 
@@ -99,7 +99,7 @@ const HeroSection = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button 
                       onClick={handleAddToCart}
-                      className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                      className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                     >
                       <ShoppingCart className="h-5 w-5" />
                       Bestellen
@@ -107,10 +107,10 @@ const HeroSection = () => {
                     
                     <a 
                       href="/producten/samen-naar-de-finish" 
-                      className="group bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-gray-200 hover:border-gray-300 flex items-center justify-center gap-2"
+                      className="group bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 px-8 py-4 rounded-xl font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl border border-gray-200 hover:border-gray-300 flex items-center justify-center gap-2"
                     >
                       Meer informatie
-                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
                     </a>
                   </div>
                 </div>
@@ -118,7 +118,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Book Image */}
+          {/* Right Column - Book Image - OPTIMIZED */}
           <div className="flex-1 flex justify-center lg:justify-end">
             <div className="relative">
               {/* Clean Book Container */}
@@ -126,14 +126,17 @@ const HeroSection = () => {
                 <Image
                   src="/images/book-cover.png"
                   alt="Samen naar de Finish - Therapeutisch Prentenboek"
-                  width={500}
-                  height={625}
-                  className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto drop-shadow-lg transition-transform duration-500 hover:scale-105"
+                  width={400}
+                  height={500}
+                  className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto drop-shadow-lg transition-transform duration-300 hover:scale-102"
                   priority
+                  quality={90}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               </div>
 
-              {/* Simple Floating Elements */}
+              {/* Simple Floating Elements - Reduced animations */}
               <div className="absolute -top-4 -right-4 bg-gradient-to-br from-orange-500 to-pink-500 text-white px-4 py-2 rounded-full shadow-lg">
                 <span className="text-sm font-bold">Nieuw!</span>
               </div>
@@ -141,9 +144,11 @@ const HeroSection = () => {
               <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-teal-500 to-blue-500 text-white px-6 py-3 rounded-full shadow-lg">
                 <div className="flex items-center gap-2">
                   <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <div key={i} className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
-                    ))}
+                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                    <div className="w-3 h-3 bg-yellow-300 rounded-full mr-1"></div>
+                    <div className="w-3 h-3 bg-yellow-300 rounded-full"></div>
                   </div>
                   <span className="text-sm font-semibold">Therapeutisch</span>
                 </div>
