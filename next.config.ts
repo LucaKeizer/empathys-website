@@ -14,18 +14,14 @@ const nextConfig: NextConfig = {
         pathname: '/vi/**',
       },
     ],
-    // Add image loading optimization
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Enable image optimization for better performance
     minimumCacheTTL: 60,
   },
   
-  // Safe experimental features only
+  // Safe experimental features only - removed optimizeCss that was causing the critters error
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    // Enable static optimization
-    optimizeCss: true,
   },
   
   // Compiler optimizations

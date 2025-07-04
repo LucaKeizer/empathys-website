@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
@@ -24,12 +24,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "nl_NL",
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${inter.variable} antialiased`}>
       <head>
-        {/* Preload critical images to prevent flash and layout shift */}
+        {/* Preload only critical above-the-fold images */}
         <link 
           rel="preload" 
           as="image" 
@@ -53,12 +54,7 @@ export default function RootLayout({
           href="/images/empathys-logo.png"
           type="image/png"
         />
-        <link 
-          rel="preload" 
-          as="image" 
-          href="/images/empathys-logo-white.png"
-          type="image/png"
-        />
+        {/* Remove white logo preload - it's below the fold in footer */}
       </head>
       <body className={`${inter.className} page-container`}>
         <CartProvider>
