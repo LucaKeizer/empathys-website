@@ -17,7 +17,3 @@ The site includes a product page for a book, a shopping cart, and a checkout flo
 * `src/app/` → pages + API routes
 * `src/components/` → UI components
 * `src/contexts/` → cart state
-
-## Notes
-
-Built as a practical project for a real use case. Focus was on getting a complete flow working end-to-end rather than perfect architecture.
